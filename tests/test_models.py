@@ -6,7 +6,7 @@ import logging
 import unittest
 import os
 from service import app
-from service.models import Account, DataValidationError, db
+from service.models import Account, DataValidationError, db, PersistentBase
 from tests.factories import AccountFactory
 
 DATABASE_URI = os.getenv(
@@ -175,3 +175,9 @@ class TestAccount(unittest.TestCase):
         """It should not Deserialize an account with a TypeError"""
         account = Account()
         self.assertRaises(DataValidationError, account.deserialize, [])
+
+    def test_id_attribute_is_none(self):
+        # Create an instance of YourClass
+        instance = PersistentBase()
+        # Assert that the 'id' attribute is set to None
+        self.assertIsNone(instance.id)
