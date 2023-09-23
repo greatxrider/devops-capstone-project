@@ -29,11 +29,9 @@ class TestAccount(unittest.TestCase):
         app.logger.setLevel(logging.CRITICAL)
         Account.init_db(app)
 
-
     @classmethod
     def tearDownClass(cls):
         """This runs once after the entire test suite"""
-
 
     def setUp(self):
         """This runs before each test"""
