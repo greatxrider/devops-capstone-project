@@ -13,8 +13,8 @@ DATABASE_URI = os.getenv(
     "DATABASE_URI", "postgresql://postgres:postgres@localhost:5432/postgres"
 )
 
+
 class TestAccount(unittest.TestCase):
- 
 
     @classmethod
     def setUpClass(cls):
