@@ -19,7 +19,6 @@ DATABASE_URI = os.getenv(
 class TestAccount(unittest.TestCase):
     """Test Cases for Account Model"""
 
-
     @classmethod
     def setUpClass(cls):
         """This runs once before the entire test suite"""
@@ -45,7 +44,6 @@ class TestAccount(unittest.TestCase):
     ######################################################################
     #  T E S T   C A S E S
     ######################################################################
-
     def test_create_an_account(self):
         """It should Create an Account and assert that it exists"""
         fake_account = AccountFactory()
@@ -80,7 +78,6 @@ class TestAccount(unittest.TestCase):
         """It should Read an account"""
         account = AccountFactory()
         account.create()
-
         # Read it back
         found_account = Account.find(account.id)
         self.assertEqual(found_account.id, account.id)
@@ -97,12 +94,10 @@ class TestAccount(unittest.TestCase):
         # Assert that it was assigned an id and shows up in the database
         self.assertIsNotNone(account.id)
         self.assertEqual(account.email, "advent@change.me")
-
         # Fetch it back
         account = Account.find(account.id)
         account.email = "XYZZY@plugh.com"
         account.update()
-
         # Fetch it back again
         account = Account.find(account.id)
         self.assertEqual(account.email, "XYZZY@plugh.com")
@@ -136,7 +131,6 @@ class TestAccount(unittest.TestCase):
         """It should Find an Account by name"""
         account = AccountFactory()
         account.create()
-
         # Fetch it back by name
         same_account = Account.find_by_name(account.name)[0]
         self.assertEqual(same_account.id, account.id)
