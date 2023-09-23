@@ -14,7 +14,7 @@ DATABASE_URI = os.getenv(
 )
 
 class TestAccount(unittest.TestCase):
-    """Test Cases for Account Model"""
+ 
 
     @classmethod
     def setUpClass(cls):
