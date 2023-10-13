@@ -6,7 +6,7 @@ import logging
 import unittest
 import os
 from service import app
-from service.models import Account, DataValidationError, db
+from service.models import Account, DataValidationError, db, PersistentBase
 from tests.factories import AccountFactory
 
 DATABASE_URI = os.getenv(
@@ -14,11 +14,7 @@ DATABASE_URI = os.getenv(
 )
 
 
-######################################################################
-#  Account   M O D E L   T E S T   C A S E S
-######################################################################
 class TestAccount(unittest.TestCase):
-    """Test Cases for Account Model"""
 
     @classmethod
     def setUpClass(cls):
@@ -45,7 +41,6 @@ class TestAccount(unittest.TestCase):
     ######################################################################
     #  T E S T   C A S E S
     ######################################################################
-
     def test_create_an_account(self):
         """It should Create an Account and assert that it exists"""
         fake_account = AccountFactory()
@@ -80,7 +75,6 @@ class TestAccount(unittest.TestCase):
         """It should Read an account"""
         account = AccountFactory()
         account.create()
-
         # Read it back
         found_account = Account.find(account.id)
         self.assertEqual(found_account.id, account.id)
@@ -97,12 +91,10 @@ class TestAccount(unittest.TestCase):
         # Assert that it was assigned an id and shows up in the database
         self.assertIsNotNone(account.id)
         self.assertEqual(account.email, "advent@change.me")
-
         # Fetch it back
         account = Account.find(account.id)
         account.email = "XYZZY@plugh.com"
         account.update()
-
         # Fetch it back again
         account = Account.find(account.id)
         self.assertEqual(account.email, "XYZZY@plugh.com")
@@ -136,7 +128,6 @@ class TestAccount(unittest.TestCase):
         """It should Find an Account by name"""
         account = AccountFactory()
         account.create()
-
         # Fetch it back by name
         same_account = Account.find_by_name(account.name)[0]
         self.assertEqual(same_account.id, account.id)
@@ -175,3 +166,9 @@ class TestAccount(unittest.TestCase):
         """It should not Deserialize an account with a TypeError"""
         account = Account()
         self.assertRaises(DataValidationError, account.deserialize, [])
+
+    def test_id_attribute_is_none(self):
+        # Create an instance of YourClass
+        instance = PersistentBase()
+        # Assert that the 'id' attribute is set to None
+        self.assertIsNone(instance.id)
